@@ -4,7 +4,7 @@
 [![complexity](https://img.shields.io/badge/complexity-Simple:%202-green)](https://radon.readthedocs.io/en/latest/api.html#module-radon.complexity)
 [![python](https://img.shields.io/badge/python-3.6-teal)](https://www.python.org/downloads/)
 
-A Python script to get contribution metrics for all members of a GitHub organization. The script utilizes the GitHub GraphQL API and exports the report to a csv file.
+A Python script to get contribution metrics for all members of a GitHub organization. The script utilizes the GitHub GraphQL API, exports, sorts, and writes the report to a csv file.
 
 ## `ghcontrib`
 ```bash
