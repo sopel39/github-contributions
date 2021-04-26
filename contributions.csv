@@ -1,85 +1,85 @@
-totalCommitContributions,totalIssueContributions,totalPullRequestContributions,totalPullRequestReviewContributions,login
-5,1,4,12,adam-intel
-1,0,1,0,akramtexas
-0,0,0,0,alexcourouble
-22,24,24,16,AlexCuse
-9,7,9,11,andresrinivasan
-0,0,0,0,andyf1967
-2,1,3,22,anonymouse64
-8,2,6,8,AnthonyMBonafide
-2,0,0,0,Aricg
-0,0,0,0,askb
-161,1,16,45,badboy-huaqiao
-12,1,15,1,beaufrusetta
-46,4,54,135,bill-mahoney
-16,1,8,4,BinduRao2018
-32,50,25,102,bnevis-i
-0,0,0,0,bramwelt
-0,0,0,7,brandonforster
-10,2,10,14,brian-intel
-0,0,0,0,bthuree
-9,3,11,3,charles-knox-intel
-132,121,129,52,cherrycl
-21,0,19,62,cjoyv
-524,121,33,531,cloudxxx8
-0,0,0,0,couralex6
-93,58,67,37,difince
-0,0,0,0,drasko
-179,0,0,0,edgex-jenkins
-0,0,0,0,edward-scott
-5,1,5,7,eno-intel
-231,41,166,172,ernestojeda
-62,50,55,5,FelixTing
-0,0,0,0,frq92290
-0,0,0,0,gaofeng3695
-2,0,1,4,gofling
-177,35,134,13,hahattan
-9,6,12,15,hutchic
-103,39,74,51,iain-anderson
-1,0,0,2,JamesKButcher
-39,53,31,37,jamesrgregg
-0,0,0,0,janko-isidorovic
-0,0,0,0,jbonafide623
-0,0,0,0,jdharms
-0,1,0,0,jduranf
-62,51,61,192,jim-wang-intel
-141,95,90,99,jinlinGuan
-306,88,109,285,jpwhitemn
-0,0,0,0,JPWKU
-75,59,63,13,judehung
-0,0,0,0,jwagantall
-3,2,2,3,kb2ma
-707,491,361,711,lenny-intel
-8,5,6,3,lindseysimple
-1,1,43,5,lranjbar
-0,0,0,0,mhall119
-0,1,0,2,michaelestrin
-38,0,14,14,MightyNerdEric
-111,15,11,81,mkbhanda
-92,21,28,87,rsdmike
-0,0,0,1,sathya-hcl
-15,6,13,7,siggiskulason
-154,14,140,123,soda480
-24,0,0,37,SteveOss
-0,0,0,0,sudhamani-hcl
-0,0,0,16,thank037
-0,0,0,0,thelinuxfoundation
-0,0,0,0,TiejunChina
-3,0,0,2,tingyuz
-5,0,0,5,tobiasmo1
-0,0,0,0,TomFlem
-84,38,39,82,tonyespy
-0,0,1,3,tsconn23
-0,0,0,1,tykeal
-0,0,0,0,vediyappan-hcl
-2,0,3,1,vijay-hcl-epl
-0,0,0,0,vishwassp-hcl-intel
-0,0,0,0,vvalderrv
-0,0,0,2,Walt-Intel
-211,134,188,8,weichou1229
-0,16,0,0,wendy0211
-0,0,0,0,wfchair
-0,0,0,0,xmlviking
-0,0,0,0,yanghua
-0,1,0,0,zhanglu0704
-0,0,0,0,zxiiro
+name,login,totalCommitContributions,totalIssueContributions,totalPullRequestContributions,totalPullRequestReviewContributions,total
+adam-intel,adam-intel,5,1,4,12,22
+Akram Ahmad,akramtexas,1,0,1,0,2
+Alex Courouble,alexcourouble,0,0,0,0,0
+Alex Ullrich,AlexCuse,22,24,24,16,86
+André Srinivasan,andresrinivasan,9,7,9,11,36
+,andyf1967,0,0,0,0,0
+Ian Johnson,anonymouse64,2,1,3,22,28
+Anthony M. Bonafide,AnthonyMBonafide,8,2,6,8,24
+Aric Gardner,Aricg,2,0,0,0,2
+askb,askb,0,0,0,0,0
+,badboy-huaqiao,161,1,16,45,223
+Beau Frusetta,beaufrusetta,12,1,15,1,29
+Bill Mahoney,bill-mahoney,46,4,54,135,239
+BinduRao,BinduRao2018,16,1,8,4,29
+Bryon Nevis,bnevis-i,32,50,25,102,209
+Trevor Bramwell,bramwelt,0,0,0,0,0
+Brandon Forster,brandonforster,0,0,0,7,7
+,brian-intel,10,2,10,14,36
+,bthuree,0,0,0,0,0
+,charles-knox-intel,9,3,11,3,26
+Cherry Wang,cherrycl,132,121,129,52,434
+CHINU JOY,cjoyv,21,0,19,62,102
+Cloud Tsai,cloudxxx8,525,121,33,533,1212
+Alex Courouble,couralex6,0,0,0,0,0
+Diana Atanasova,difince,93,58,67,37,255
+Drasko DRASKOVIC,drasko,0,0,0,0,0
+Jenkins for EdgeX Foundry,edgex-jenkins,179,0,0,0,179
+Edward Scott,edward-scott,0,0,0,0,0
+Enobong Udoko,eno-intel,5,1,5,7,18
+Ernesto Ojeda,ernestojeda,231,41,166,172,610
+Felix Ting,FelixTing,62,50,55,5,172
+Robin Chatterjee,frq92290,0,0,0,0,0
+,gaofeng3695,0,0,0,0,0
+Christoffer Christensen,gofling,2,0,1,4,7
+Chris Hung,hahattan,178,35,135,13,361
+Colin Hutchinson,hutchic,9,6,12,15,42
+Iain Anderson,iain-anderson,103,39,74,51,267
+,JamesKButcher,1,0,0,2,3
+,jamesrgregg,39,53,31,37,160
+Janko Isidorovic,janko-isidorovic,0,0,0,0,0
+Jason Bonafide,jbonafide623,0,0,0,0,0
+Daniel Harms,jdharms,0,0,0,0,0
+Joan Duran,jduranf,0,1,0,0,1
+Jim Wang @ Intel,jim-wang-intel,62,51,61,192,366
+Ginny Guan,jinlinGuan,141,95,90,99,425
+Jim White,jpwhitemn,306,88,109,285,788
+Jeremy Phelps,JPWKU,0,0,0,0,0
+Jude Hung,judehung,75,59,63,13,210
+,jwagantall,0,0,0,0,0
+Ken Bannister,kb2ma,3,2,2,3,10
+Lenny Goodell,lenny-intel,707,491,361,711,2270
+Lindsey Cheng,lindseysimple,8,5,6,3,22
+Lisa Rashidi-Ranjbar,lranjbar,1,1,43,5,50
+Michael Hall,mhall119,0,0,0,0,0
+Michael Estrin,michaelestrin,0,1,0,2,3
+Eric Ball,MightyNerdEric,38,0,14,14,66
+Malini Bhandaru,mkbhanda,111,15,11,81,218
+Mike,rsdmike,92,21,28,87,228
+Sathya Durai,sathya-hcl,0,0,0,1,1
+Siggi Skulason,siggiskulason,15,6,13,7,41
+Emilio Reyes,soda480,154,14,140,123,431
+Steve Osselton,SteveOss,24,0,0,37,61
+Sudhamani Bijivemula ,sudhamani-hcl,0,0,0,0,0
+i蝸居年華_谢谢谢,thank037,0,0,0,16,16
+The Linux Foundation,thelinuxfoundation,0,0,0,0,0
+Tiejun Chen,TiejunChina,0,0,0,0,0
+,tingyuz,3,0,0,2,5
+Tobias Mosby,tobiasmo1,5,0,0,5,10
+Tom Fleming,TomFlem,0,0,0,0,0
+Tony Espy,tonyespy,84,38,39,82,243
+Trevor Conn,tsconn23,0,0,1,3,4
+Andrew Grimberg,tykeal,0,0,0,1,1
+,vediyappan-hcl,0,0,0,0,0
+,vijay-hcl-epl,2,0,3,1,6
+Vishwas,vishwassp-hcl-intel,0,0,0,0,0
+vvalderrv,vvalderrv,0,0,0,0,0
+Walt,Walt-Intel,0,0,0,2,2
+Bruce Huang,weichou1229,211,135,189,8,543
+Wendy Huang,wendy0211,0,16,0,0,16
+,wfchair,0,0,0,0,0
+Eric Cotter,xmlviking,0,0,0,0,0
+vinoyang,yanghua,0,0,0,0,0
+Zhanglu,zhanglu0704,0,1,0,0,1
+Thanh Ha,zxiiro,0,0,0,0,0

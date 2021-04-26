@@ -17,6 +17,14 @@ QUERY = """
                 totalIssueContributions
                 totalPullRequestContributions
                 totalPullRequestReviewContributions
+                totalRepositoriesWithContributedCommits
+                totalRepositoriesWithContributedIssues
+                totalRepositoriesWithContributedPullRequests
+                totalRepositoriesWithContributedPullRequestReviews
+                user {
+                    login
+                    name
+                }
             }
         }
     }
@@ -62,6 +70,21 @@ def get_contributions_query(login, date_from, date_to, organization_id):
     return query_template.substitute(arguments)
 
 
+def get_user_contribution(data):
+    """ return user contribution from data
+    """
+    item = {
+        'name': data['user']['name'],
+        'login': data['user']['login'],
+        'totalCommitContributions': data['totalCommitContributions'],
+        'totalIssueContributions': data['totalIssueContributions'],
+        'totalPullRequestContributions': data['totalPullRequestContributions'],
+        'totalPullRequestReviewContributions': data['totalPullRequestReviewContributions'],
+        'total': data['totalCommitContributions'] + data['totalIssueContributions'] + data['totalPullRequestContributions'] + data['totalPullRequestReviewContributions']
+    }
+    return item
+
+
 def get_contributions(data, *args):
     """ get contributions for all members in organization
     """
@@ -76,13 +99,13 @@ def get_contributions(data, *args):
     logger.debug(f'{organization} has a total of {len(members)} users')
     for member in members:
         login = member['login']
-        query = get_contributions_query(login, date_from, date_to, organization_id,)
+        query = get_contributions_query(login, date_from, date_to, organization_id)
         logger.debug(f'getting contributions for user {login}')
         response = client.post('/graphql', json={'query': query})
-        item = response['data']['user']['contributionsCollection']
-        item['login'] = login
-        contributions.append(item)
+        contribution = get_user_contribution(response['data']['user']['contributionsCollection'])
+        contributions.append(contribution)
     return contributions
+
 
 def write_json(process_data, name):
     """ write data to json file
@@ -90,7 +113,7 @@ def write_json(process_data, name):
     filename = f'{name}.json'
     with open(filename, 'w') as fp:
         json.dump(process_data, fp, indent=2)
-        print(f'{name} report written to {filename}')
+    print(f'{name} report written to {filename}')
 
 
 def write_csv(data, name):
@@ -103,7 +126,7 @@ def write_csv(data, name):
         writer = csv.DictWriter(output, headers)
         writer.writeheader()
         writer.writerows(data)
-    logger.info(f'created {filename}')
+    print(f'{name} report written to {filename}')
 
 
 def main():
