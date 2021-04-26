@@ -1,7 +1,9 @@
 import csv
 import json
-import datetime
 import logging
+import argparse
+import datetime
+from os import getenv
 from copy import deepcopy
 from string import Template
 from github3api import GitHubAPI
@@ -30,6 +32,20 @@ QUERY = """
         }
     }
 """
+
+def get_parser():
+    """ return argument parser
+    """
+    parser = argparse.ArgumentParser(
+        description='A Python script to get contribution metrics for all members of a GitHub organization using the GitHub GraphQL API')
+    parser.add_argument(
+        '--org',
+        dest='org',
+        type=str,
+        default=getenv('GH_ORG'),
+        required=False,
+        help='GitHub organization containing members to process')
+    return parser
 
 
 def configure_logging():
@@ -67,7 +83,12 @@ def get_contributions_query(login, date_from, date_to, organization_id):
     """ return contributions query
     """
     query_template = Template(sanitize(QUERY))
-    arguments = {'login': login, 'from': date_from, 'to': date_to, 'organizationID': organization_id}
+    arguments = {
+    	'login': login,
+    	'from': date_from,
+    	'to': date_to,
+    	'organizationID': organization_id
+    }
     return query_template.substitute(arguments)
 
 
@@ -133,10 +154,11 @@ def write_csv(data, name):
 def main():
     """ main method
     """
-    owner = 'edgexfoundry'
-    print(f'Getting user contribution data for {owner} ...')
+    args = get_parser().parse_args()
+    configure_logging()
+    print(f'Getting user contribution data for {args.org} ...')
     date_to, date_from = get_dates()
-    process_data = [{'date_from': date_from, 'date_to': date_to, 'organization': owner}]
+    process_data = [{'date_from': date_from, 'date_to': date_to, 'organization': args.org}]
     MP4ansi(
         function=get_contributions,
         process_data=process_data,
@@ -148,10 +170,12 @@ def main():
                 'progress_message': 'Contributions retrieval complete'
             }
         }).execute(raise_if_error=True)
-    # write_json(process_data[0]['result'], 'contributions')
-    write_csv(process_data[0]['result'], 'contributions')
+    # sort by total
+    result = process_data[0]['result']
+    sorted_result = sorted(result, key=lambda item: item['total'], reverse=True)
+    write_json(sorted_result, 'contributions')
+    write_csv(sorted_result, 'contributions')
 
 
 if __name__ == '__main__':
-    configure_logging()
     main()
