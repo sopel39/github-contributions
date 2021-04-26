@@ -9,6 +9,7 @@ from mp4ansi import MP4ansi
 
 logger = logging.getLogger(__name__)
 
+
 QUERY = """
     {
         user(login: "$login") {
@@ -147,7 +148,7 @@ def main():
                 'progress_message': 'Contributions retrieval complete'
             }
         }).execute(raise_if_error=True)
-    write_json(process_data[0]['result'], 'contributions')
+    # write_json(process_data[0]['result'], 'contributions')
     write_csv(process_data[0]['result'], 'contributions')
 
 
