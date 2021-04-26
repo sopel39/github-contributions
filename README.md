@@ -1,5 +1,5 @@
 # github-contributions
-A python script to get contribution metrics for all members of a GitHub organization. The script utilizes the GitHub GraphQL API and exports the report to a csv file.
+A Python script to get contribution metrics for all members of a GitHub organization. The script utilizes the GitHub GraphQL API and exports the report to a csv file.
 
 Build the Docker image:
 ```bash
@@ -18,4 +18,10 @@ docker container run \
 -e https_proxy \
 -v $PWD:/ghcontrib \
 ghcontrib:latest /bin/sh
+```
+
+Export the required environment variable and execute the script:
+```bash
+export GH_TOKEN_PSW=--github-token--
+python contributions.py
 ```
