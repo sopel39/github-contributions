@@ -6,5 +6,6 @@ WORKDIR /ghcontrib
 
 COPY . /ghcontrib/
 
-RUN pip install github3api
-RUN pip install mp4ansi
+RUN pip install pybuilder==0.11.17
+# RUN pyb install_dependencies
+# RUN pyb install

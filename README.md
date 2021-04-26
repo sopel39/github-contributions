@@ -1,9 +1,14 @@
 # github-contributions
+[![GitHub Workflow Status](https://github.com/soda480/github-contributions/workflows/build/badge.svg)](https://github.com/soda480/github-contributions/actions)
+[![Code Grade](https://www.code-inspector.com/project/21990/status/svg)](https://frontend.code-inspector.com/project/21990/dashboard)
+[![complexity](https://img.shields.io/badge/complexity-Simple:%202-green)](https://radon.readthedocs.io/en/latest/api.html#module-radon.complexity)
+[![python](https://img.shields.io/badge/python-3.6-teal)](https://www.python.org/downloads/)
+
 A Python script to get contribution metrics for all members of a GitHub organization. The script utilizes the GitHub GraphQL API and exports the report to a csv file.
 
-## `contributions`
+## `ghcontrib`
 ```bash
-usage: contributions.py [-h] [--org ORG]
+usage: ghcontrib [-h] [--org ORG]
 
 A Python script to get contribution metrics for all members of a GitHub
 organization using the GitHub GraphQL API
@@ -35,7 +40,7 @@ ghcontrib:latest /bin/sh
 Export the required environment variable and execute the script:
 ```bash
 export GH_TOKEN_PSW=--github-token--
-python contributions.py --org edgexfoundry
+ghcontrib --org edgexfoundry
 ```
 
 ![preview](https://raw.githubusercontent.com/soda480/github-contributions/master/docs/images/contributions.gif)

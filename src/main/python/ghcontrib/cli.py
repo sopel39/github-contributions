@@ -32,6 +32,7 @@ QUERY = """
     }
 """
 
+
 def get_parser():
     """ return argument parser
     """
@@ -83,10 +84,10 @@ def get_contributions_query(login, date_from, date_to, organization_id):
     """
     query_template = Template(sanitize(QUERY))
     arguments = {
-    	'login': login,
-    	'from': date_from,
-    	'to': date_to,
-    	'organizationID': organization_id
+        'login': login,
+        'from': date_from,
+        'to': date_to,
+        'organizationID': organization_id
     }
     return query_template.substitute(arguments)
 
