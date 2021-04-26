@@ -25,3 +25,5 @@ Export the required environment variable and execute the script:
 export GH_TOKEN_PSW=--github-token--
 python contributions.py
 ```
+
+![preview](https://raw.githubusercontent.com/soda480/github-contributions/master/docs/images/contributions.gif)
