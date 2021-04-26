@@ -1,5 +1,5 @@
 # github-contributions
-[![GitHub Workflow Status](https://github.com/soda480/github-contributions/workflows/build/badge.svg)](https://github.com/soda480/github-contributions/actions)
+[![Build](https://github.com/soda480/github-contributions/actions/workflows/main.yml/badge.svg)](https://github.com/soda480/github-contributions/actions/workflows/main.yml)
 [![Code Grade](https://www.code-inspector.com/project/21990/status/svg)](https://frontend.code-inspector.com/project/21990/dashboard)
 [![complexity](https://img.shields.io/badge/complexity-Simple:%202-green)](https://radon.readthedocs.io/en/latest/api.html#module-radon.complexity)
 [![python](https://img.shields.io/badge/python-3.6-teal)](https://www.python.org/downloads/)
