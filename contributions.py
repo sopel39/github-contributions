@@ -26,7 +26,6 @@ QUERY = """
                 totalRepositoriesWithContributedPullRequestReviews
                 user {
                     login
-                    name
                 }
             }
         }
@@ -96,7 +95,7 @@ def get_user_contribution(data):
     """ return user contribution from data
     """
     item = {
-        'name': data['user']['name'],
+        # 'name': data['user']['name'],
         'login': data['user']['login'],
         'totalCommitContributions': data['totalCommitContributions'],
         'totalIssueContributions': data['totalIssueContributions'],
