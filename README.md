@@ -1,8 +1,7 @@
-[![complexity](https://img.shields.io/badge/complexity-Simple:%203-green)](https://radon.readthedocs.io/en/latest/api.html#module-radon.complexity)
 # github-contributions
 [![Build](https://github.com/soda480/github-contributions/actions/workflows/main.yml/badge.svg)](https://github.com/soda480/github-contributions/actions/workflows/main.yml)
 [![Code Grade](https://www.code-inspector.com/project/21990/status/svg)](https://frontend.code-inspector.com/project/21990/dashboard)
-[![complexity](https://img.shields.io/badge/complexity-Simple:%202-green)](https://radon.readthedocs.io/en/latest/api.html#module-radon.complexity)
+[![complexity](https://img.shields.io/badge/complexity-Simple:%203-green)](https://radon.readthedocs.io/en/latest/api.html#module-radon.complexity)
 [![python](https://img.shields.io/badge/python-3.6-teal)](https://www.python.org/downloads/)
 
 A Python script to get contribution metrics for all members of a GitHub organization. The script utilizes the GitHub GraphQL API, exports, sorts, and writes the report to a csv file.
