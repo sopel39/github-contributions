@@ -37,7 +37,7 @@ def set_properties(project):
     project.set_property('flake8_ignore', 'F401, E501')
     project.build_depends_on_requirements('requirements-build.txt')
     project.depends_on_requirements('requirements.txt')
-    project.set_property('distutils_console_scripts', ['ghcontrib = ghcontrib.cli:main'])
+    project.set_property('distutils_console_scripts', ['ghcontrib = ghcontrib.ghcontrib:main'])
     project.set_property('radon_break_build_average_complexity_threshold', 4)
     project.set_property('radon_break_build_complexity_threshold', 10)
     project.set_property('bandit_break_build', False)
