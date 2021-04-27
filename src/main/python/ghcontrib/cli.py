@@ -1,13 +1,15 @@
+import os
+import sys
 import csv
 import json
 import logging
 import argparse
 import datetime
-from os import getenv
-from copy import deepcopy
 from string import Template
+
 from github3api import GitHubAPI
 from mp4ansi import MP4ansi
+
 
 logger = logging.getLogger(__name__)
 
@@ -42,19 +44,21 @@ def get_parser():
         '--org',
         dest='org',
         type=str,
-        default=getenv('GH_ORG'),
+        default=os.getenv('GH_ORG'),
         required=False,
         help='GitHub organization containing members to process')
     return parser
 
 
-def configure_logging():
+def configure_logging(name=None):
     """ configure logging
     """
+    if not name:
+        name = os.path.basename(sys.argv[0])
     rootLogger = logging.getLogger()
     # must be set to this level so handlers can filter from this level
     rootLogger.setLevel(logging.DEBUG)
-    file_handler = logging.FileHandler('contributions.log')
+    file_handler = logging.FileHandler(f'{name}.log')
     file_formatter = logging.Formatter("%(asctime)s %(processName)s [%(funcName)s] %(levelname)s %(message)s")
     file_handler.setFormatter(file_formatter)
     file_handler.setLevel(logging.DEBUG)
@@ -74,15 +78,14 @@ def get_dates():
 def sanitize(query):
     """ sanitize query
     """
-    q1 = query.replace(' ', '')
-    q2 = q1.replace('\n', ' ')
-    return q2
+    return query.replace(' ', '').replace('\n', ' ')
 
 
 def get_contributions_query(login, date_from, date_to, organization_id):
     """ return contributions query
     """
-    query_template = Template(sanitize(QUERY))
+    sanitized_query = sanitize(QUERY)
+    query_template = Template(sanitized_query)
     arguments = {
         'login': login,
         'from': date_from,
@@ -95,7 +98,7 @@ def get_contributions_query(login, date_from, date_to, organization_id):
 def get_user_contribution(data):
     """ return user contribution from data
     """
-    item = {
+    return {
         # 'name': data['user']['name'],
         'login': data['user']['login'],
         'totalCommitContributions': data['totalCommitContributions'],
@@ -104,7 +107,6 @@ def get_user_contribution(data):
         'totalPullRequestReviewContributions': data['totalPullRequestReviewContributions'],
         'total': data['totalCommitContributions'] + data['totalIssueContributions'] + data['totalPullRequestContributions'] + data['totalPullRequestReviewContributions']
     }
-    return item
 
 
 def get_contributions(data, *args):
@@ -121,8 +123,8 @@ def get_contributions(data, *args):
     logger.debug(f'{organization} has a total of {len(members)} users')
     for member in members:
         login = member['login']
-        query = get_contributions_query(login, date_from, date_to, organization_id)
         logger.debug(f'getting contributions for user {login}')
+        query = get_contributions_query(login, date_from, date_to, organization_id)
         response = client.post('/graphql', json={'query': query})
         contribution = get_user_contribution(response['data']['user']['contributionsCollection'])
         contributions.append(contribution)
@@ -133,8 +135,8 @@ def write_json(process_data, name):
     """ write data to json file
     """
     filename = f'{name}.json'
-    with open(filename, 'w') as fp:
-        json.dump(process_data, fp, indent=2)
+    with open(filename, 'w') as output:
+        json.dump(process_data, output, indent=2)
     print(f'{name} report written to {filename}')
 
 
@@ -170,9 +172,7 @@ def main():
                 'progress_message': 'Contributions retrieval complete'
             }
         }).execute(raise_if_error=True)
-    # sort by total
-    result = process_data[0]['result']
-    sorted_result = sorted(result, key=lambda item: item['total'], reverse=True)
+    sorted_result = sorted(process_data[0]['result'], key=lambda item: item['total'], reverse=True)
     write_json(sorted_result, 'contributions')
     write_csv(sorted_result, 'contributions')
 
