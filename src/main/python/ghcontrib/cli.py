@@ -119,15 +119,16 @@ def get_contributions(data, *args):
     client = GitHubAPI.get_client()
     organization_id = client.get(f'/orgs/{organization}')['node_id']
     logger.debug(f'getting github contributions for {organization} users')
-    members = client.get(f'/orgs/{organization}/members', _get='all', _attributes=['login'])
-    logger.debug(f'{organization} has a total of {len(members)} users')
-    for member in members:
-        login = member['login']
-        logger.debug(f'getting contributions for user {login}')
-        query = get_contributions_query(login, date_from, date_to, organization_id)
-        response = client.post('/graphql', json={'query': query})
-        contribution = get_user_contribution(response['data']['user']['contributionsCollection'])
-        contributions.append(contribution)
+    total_members = client.total(f'/orgs/{organization}/members')
+    logger.debug(f'{organization} has a total of {total_members} users')
+    for page in client.get(f'/orgs/{organization}/members', _get='page'):
+        for member in page:
+            login = member['login']
+            logger.debug(f'getting contributions for user {login}')
+            query = get_contributions_query(login, date_from, date_to, organization_id)
+            response = client.post('/graphql', json={'query': query})
+            contribution = get_user_contribution(response['data']['user']['contributionsCollection'])
+            contributions.append(contribution)
     return contributions
 
 
