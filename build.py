@@ -41,5 +41,5 @@ def set_properties(project):
     project.set_property('radon_break_build_average_complexity_threshold', 4)
     project.set_property('radon_break_build_complexity_threshold', 10)
     project.set_property('bandit_break_build', False)
-    project.set_property('anybadge_exclude', 'vulnerabilities, coverage')
+    project.set_property('anybadge_exclude', 'coverage')
     project.set_property('anybadge_use_shields', True)
