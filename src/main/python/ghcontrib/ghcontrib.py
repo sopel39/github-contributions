@@ -17,7 +17,10 @@ logger = logging.getLogger(__name__)
 QUERY = """
     {
         user(login: "$login") {
-            contributionsCollection(from: "$from", to: "$to", organizationID: "$organizationID") {
+            contributionsCollection(organizationID: "$organizationID") {
+                user {
+                    login
+                }
                 totalCommitContributions
                 totalIssueContributions
                 totalPullRequestContributions
@@ -26,8 +29,20 @@ QUERY = """
                 totalRepositoriesWithContributedIssues
                 totalRepositoriesWithContributedPullRequests
                 totalRepositoriesWithContributedPullRequestReviews
-                user {
-                    login
+                pullRequestReviewContributions(first:$size, after:"$cursor") {
+                    totalCount
+                    pageInfo {
+                        endCursor
+                        hasNextPage
+                    }
+                    edges {
+                        cursor
+                        node {
+                            pullRequestReview {
+                              state
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -81,16 +96,16 @@ def sanitize(query):
     return query.replace(' ', '').replace('\n', ' ')
 
 
-def get_contributions_query(login, date_from, date_to, organization_id):
+def get_contributions_query(login, organization_id, size, cursor):
     """ return contributions query
     """
     sanitized_query = sanitize(QUERY)
     query_template = Template(sanitized_query)
     arguments = {
         'login': login,
-        'from': date_from,
-        'to': date_to,
-        'organizationID': organization_id
+        'organizationID': organization_id,
+        'size': size,
+        'cursor': cursor
     }
     return query_template.substitute(arguments)
 
@@ -109,13 +124,32 @@ def get_user_contribution(data):
     }
 
 
+def get_pull_request_reviews_breakdown(edges):
+    """ return pull request reviews breakdown
+    """
+    pull_request_reviews = {
+        'APPROVED': 0,
+        'DISMISSED': 0,
+        'CHANGES_REQUESTED': 0,
+        'COMMENTED': 0
+    }
+    for edge in edges:
+        state = edge['node']['pullRequestReview']['state']
+        pull_request_reviews[state] += 1
+
+    pull_request_reviews['totalPullRequestReviewContributions_Approved'] = pull_request_reviews.pop('APPROVED')
+    pull_request_reviews['totalPullRequestReviewContributions_Dismissed'] = pull_request_reviews.pop('DISMISSED')
+    pull_request_reviews['totalPullRequestReviewContributions_Changes_Requested'] = pull_request_reviews.pop('CHANGES_REQUESTED')
+    pull_request_reviews['totalPullRequestReviewContributions_Commented'] = pull_request_reviews.pop('COMMENTED')
+
+    return pull_request_reviews
+
+
 def get_contributions(data, *args):
     """ get contributions for all members in organization
     """
     contributions = []
     organization = data['organization']
-    date_from = data['date_from']
-    date_to = data['date_to']
     client = GitHubAPI.get_client()
     organization_id = client.get(f'/orgs/{organization}')['node_id']
     logger.debug(f'getting github contributions for {organization} users')
@@ -125,9 +159,21 @@ def get_contributions(data, *args):
         for member in page:
             login = member['login']
             logger.debug(f'getting contributions for user {login}')
-            query = get_contributions_query(login, date_from, date_to, organization_id)
-            response = client.post('/graphql', json={'query': query})
+
+            cursor = ""
+            edges = []
+            while True:
+                query = get_contributions_query(login, organization_id, 100, cursor)
+                response = client.post('/graphql', json={'query': query})
+                edges.extend(response['data']['user']['contributionsCollection']['pullRequestReviewContributions']['edges'])
+                has_next_page = response['data']['user']['contributionsCollection']['pullRequestReviewContributions']['pageInfo']['hasNextPage']
+                if not has_next_page:
+                    break
+                cursor = response['data']['user']['contributionsCollection']['pullRequestReviewContributions']['pageInfo']['endCursor']
+
+            pull_request_reviews = get_pull_request_reviews_breakdown(edges)
             contribution = get_user_contribution(response['data']['user']['contributionsCollection'])
+            contribution.update(pull_request_reviews)
             contributions.append(contribution)
     return contributions
 
@@ -160,8 +206,7 @@ def main():
     args = get_parser().parse_args()
     configure_logging()
     print(f'Getting user contribution data for {args.org} ...')
-    date_to, date_from = get_dates()
-    process_data = [{'date_from': date_from, 'date_to': date_to, 'organization': args.org}]
+    process_data = [{'organization': args.org}]
     MP4ansi(
         function=get_contributions,
         process_data=process_data,
