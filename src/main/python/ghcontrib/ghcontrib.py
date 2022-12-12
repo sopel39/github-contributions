@@ -20,6 +20,7 @@ QUERY = """
             contributionsCollection(organizationID: "$organizationID", from: "2022-06-01T00:00:00") {
                 user {
                     login
+                    name
                 }
                 totalCommitContributions
                 totalIssueContributions
@@ -114,7 +115,7 @@ def get_user_contribution(data):
     """ return user contribution from data
     """
     return {
-        # 'name': data['user']['name'],
+        'name': data['user']['name'],
         'login': data['user']['login'],
         'totalCommitContributions': data['totalCommitContributions'],
         'totalIssueContributions': data['totalIssueContributions'],
