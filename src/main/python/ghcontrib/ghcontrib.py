@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 QUERY = """
     {
         user(login: "$login") {
-            contributionsCollection(organizationID: "$organizationID") {
+            contributionsCollection(organizationID: "$organizationID", from: "2022-06-01T00:00:00") {
                 user {
                     login
                 }
@@ -134,8 +134,9 @@ def get_pull_request_reviews_breakdown(edges):
         'COMMENTED': 0
     }
     for edge in edges:
-        state = edge['node']['pullRequestReview']['state']
-        pull_request_reviews[state] += 1
+        if edge is not None and edge['node'] is not None and edge['node']['pullRequestReview'] is not None:
+            state = edge['node']['pullRequestReview']['state']
+            pull_request_reviews[state] += 1
 
     pull_request_reviews['totalPullRequestReviewContributions_Approved'] = pull_request_reviews.pop('APPROVED')
     pull_request_reviews['totalPullRequestReviewContributions_Dismissed'] = pull_request_reviews.pop('DISMISSED')
